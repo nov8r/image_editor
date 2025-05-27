@@ -1,0 +1,23 @@
+{
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.extraPaths": [".venv/Lib/site-packages"],
+    "python.analysis.fixAll": ["source.unusedImports"],
+    "python.languageServer": "Pylance",
+
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.rulers": [88],
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll": "explicit"
+        }
+    },
+
+    "mypy-type-checker.path": [".venv/Lib/mypy"],
+
+    "python.testing.pytestArgs": ["tests"],
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestPath": ".venv/Lib/pytest",
+    "python.testing.unittestEnabled": false
+}
