@@ -1,20 +1,10 @@
-from PIL import Image
+from ui.main_window import ImageEditorApp
 
 
-def open_img(imgPath: str) -> bool | str:
-    """Opens image from a given path
+def main():
+    app = ImageEditorApp()
+    app.mainloop()
 
-    Args:
-        imgPath (str): Path of an image file
 
-    Returns:
-        bool or str: True on success, or error message string on failure
-    """
-    try:
-        im = Image.open(imgPath)
-        im.show()
-        return True
-    except FileNotFoundError:
-        return f"Error: Image does not exist in {imgPath}"
-    except Exception as e:
-        return f"Error: {e}"
+if __name__ == "__main__":
+    main()
