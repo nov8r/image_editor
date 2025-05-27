@@ -44,4 +44,12 @@ def save_img(img: Image.Image, savePath: str) -> None:
 
 
 def rotate_img(img: Image.Image) -> Image.Image:
+    """Rotates an image 90 degrees
+
+    Args:
+        img (Image.Image): The image to be rotated
+
+    Returns:
+        Image.Image: The rotated image
+    """
     return img.rotate(90)
