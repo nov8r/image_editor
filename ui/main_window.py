@@ -3,7 +3,7 @@ from tkinter import filedialog as fd
 
 from PIL import ImageTk
 
-from image_processing.operations import open_img, save_img
+from image_processing.operations import open_img, rotate_img, save_img
 
 
 class ImageEditorApp(tk.Tk):
@@ -27,6 +27,10 @@ class ImageEditorApp(tk.Tk):
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.quit)
 
+        edit_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="Edit", menu=edit_menu)
+        edit_menu.add_command(label="Rotate", command=self._rotate_image)
+
     def _open_image(self):
         file_path = fd.askopenfilename(
             title="Open Image",
@@ -39,8 +43,8 @@ class ImageEditorApp(tk.Tk):
             print(f"Selected file: {file_path}")
             self.img = open_img(file_path)
             self.photo = ImageTk.PhotoImage(self.img)
-            label = tk.Label(self, image=self.photo)
-            label.place(relx=0.5, rely=0.5, anchor="center")
+            self.label = tk.Label(self, image=self.photo)
+            self.label.place(relx=0.5, rely=0.5, anchor="center")
 
     def _save_image(self):
         if self.img:
@@ -57,4 +61,22 @@ class ImageEditorApp(tk.Tk):
             save_img(self.img, save_path)
 
     def _save_image_as(self):
-        self._save_image()
+        if self.img:
+            save_path = fd.asksaveasfilename(
+                title="Save Image As...",
+                defaultextension=".png",
+                filetypes=[
+                    ("PNG files", "*.png"),
+                    ("JPEG files", "*.jpg"),
+                    ("BMP files", "*.bmp"),
+                    ("All files", "*.*"),
+                ],
+            )
+            save_img(self.img, save_path)
+
+    def _rotate_image(self):
+        if self.img:
+            self.img = rotate_img(self.img)
+            self.photo = ImageTk.PhotoImage(self.img)  # recreate the PhotoImage
+            self.label.configure(image=self.photo)  # update the label
+            self.label.image = self.photo  # prevent garbage collection

@@ -41,3 +41,7 @@ def save_img(img: Image.Image, savePath: str) -> None:
             img.save(savePath)
     except Exception as e:
         print(f"Error saving image to {savePath}: {e}")
+
+
+def rotate_img(img: Image.Image) -> Image.Image:
+    return img.rotate(90)
