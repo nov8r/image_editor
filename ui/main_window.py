@@ -3,7 +3,7 @@ from tkinter import filedialog as fd
 
 from PIL import ImageTk
 
-from image_processing.operations import open_img, rotate_img, save_img
+from image_processing.operations import open_img, resize_img, rotate_img, save_img
 
 
 class ImageEditorApp(tk.Tk):
@@ -30,6 +30,7 @@ class ImageEditorApp(tk.Tk):
         edit_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Edit", menu=edit_menu)
         edit_menu.add_command(label="Rotate", command=self._rotate_image)
+        edit_menu.add_command(label="Resize", command=self._resize_image)
 
     def _open_image(self):
         file_path = fd.askopenfilename(
@@ -77,6 +78,13 @@ class ImageEditorApp(tk.Tk):
     def _rotate_image(self):
         if self.img:
             self.img = rotate_img(self.img)
-            self.photo = ImageTk.PhotoImage(self.img)  # recreate the PhotoImage
-            self.label.configure(image=self.photo)  # update the label
-            self.label.image = self.photo  # prevent garbage collection
+            self.photo = ImageTk.PhotoImage(self.img)
+            self.label.configure(image=self.photo)
+            self.label.image = self.photo
+
+    def _resize_image(self):
+        if self.img:
+            self.img = resize_img(self.img, 400, 400)  # will add dynamic resizing later
+            self.photo = ImageTk.PhotoImage(self.img)
+            self.label.configure(image=self.photo)
+            self.label.image = self.photo

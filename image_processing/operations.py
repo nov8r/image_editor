@@ -53,3 +53,17 @@ def rotate_img(img: Image.Image) -> Image.Image:
         Image.Image: The rotated image
     """
     return img.rotate(90)
+
+
+def resize_img(img: Image.Image, width: int, height: int) -> Image.Image:
+    """Resizes a given image by width and height
+
+    Args:
+        img (Image.Image): The image to be resized
+        width (int): Width to resize to (in pixels)
+        height (int): Height to resize to (in pixels)
+
+    Returns:
+        Image.Image: Resized image
+    """
+    return img.resize((width, height), resample=5)
